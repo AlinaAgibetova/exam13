@@ -29,6 +29,11 @@ import { HasRolesDirective } from './directives/has-roles.directive';
 import { PlacesComponent } from './pages/places/places.component';
 import { ModalComponentComponent } from './pages/modal-component/modal-component.component';
 import { AddPlacesComponent } from './pages/add-places/add-places.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ImagePipe } from './pipes/image.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -54,27 +59,32 @@ const socialConfig: SocialAuthServiceConfig = {
     PlacesComponent,
     ModalComponentComponent,
     AddPlacesComponent,
+    ImagePipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AppStoreModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatCardModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    SocialLoginModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AppStoreModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatInputModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatCardModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        SocialLoginModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatSelectModule,
+        MatCheckboxModule
 
-  ],
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig},

@@ -1,1 +1,26 @@
-<p>places works!</p>
+<div fxLayout="row" fxLayoutAlign="space-between flex-start">
+  <h1>All Places</h1>
+</div>
+<div class="error" *ngIf="error | async"> {{error | async}}</div>
+<mat-progress-spinner *ngIf="loading | async else placesArea" mode="indeterminate"></mat-progress-spinner>
+<ng-template #placesArea>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lt-lg="33%" fxFlex="25%" *ngFor="let place of places | async">
+      <mat-card>
+        <img
+          [src]="place.photoContent | image"
+          [alt]="'Photo of' + place.photoContent | image"
+          mat-card-image
+        />
+        <h4>Name of place: {{ place.title }}</h4>
+        <h4>Review: {{ place.review }}</h4>
+        <h4>Review: {{ place.photo }}</h4>
+        <a mat-button (click)="openDialog(place._id)">
+          VIEW
+        </a>
+
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+

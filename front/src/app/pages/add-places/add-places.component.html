@@ -1,1 +1,40 @@
-<p>add-places works!</p>
+<h1>ADD NEW PLACES</h1>
+<mat-card>
+  <mat-card-content>
+    <div class="error" *ngIf="error | async">
+      {{ error | async }}
+    </div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input name="title" required matInput ngModel/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea name="description" required matInput ngModel></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Main photo</mat-label>
+        <app-file-input name="photoContent" ngModel></app-file-input>
+      </mat-form-field>
+
+      <p class="is-agree-block">
+        <mat-checkbox name="isAgree" ngModel>I agree</mat-checkbox>
+      </p>
+      <div>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="f.invalid || (loading | async)"
+        >SAVE</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+

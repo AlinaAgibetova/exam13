@@ -16,13 +16,13 @@ const ReviewSchema = new Schema({
     type: String
   },
   qualityOfService: {
-    type: String
+    type: Number
   },
   qualityOfFood: {
-    type: String
+    type: Number
   },
   interior: {
-    type: String
+    type: Number
   }
 });
 

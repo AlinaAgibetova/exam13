@@ -24,26 +24,8 @@ const upload = multer({storage});
 
 router.get('/', async (req, res, next) => {
   try {
-    const query = {};
-    const projection = {};
-    const sort = {review: 'desc'};
-
-    const users = await User.find(req.query);
-    query['user'] = users.map(user => {
-      return user._id;
-    });
-
-    // if (req.query.title) {
-    //   query['$text'] = {$search: req.query.title};
-    //   projection['score'] = {$meta: 'textScore'};
-    //   sort['score'] = {$meta: 'textScore'};
-    // }
-
-    const places = await Place.find(query, projection)
-      .populate('user', 'displayName')
-      .sort(sort);
-
-    return res.send(places);
+    const place = await Place.find().populate("user", "displayName");
+    return res.send(place);
   } catch (e) {
     next(e);
   }
@@ -51,8 +33,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const place = await Place.findById(req.params.id).populate('user', 'displayName')
-      .populate('user', 'displayName')
+    const place = await Place.findById(req.params.id)
       .populate([{path: 'review.user', select: 'displayName photo'}])
     if (!place) {
       return res.status(404).send({message: 'Нет такого заведения'});
@@ -66,11 +47,12 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', auth, upload.single('photoContent'), async (req, res, next) => {
   try {
     const placeData = {
-      name: req.body.name,
+      title: req.body.title,
       user: req.body.user,
       review: req.body.review,
-      isAgree: true,
       photoContent: null,
+      description: req.body.description,
+      isAgree: true,
     }
 
     if (req.file){

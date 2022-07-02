@@ -24,7 +24,6 @@ export class UserService {
   }
 
   signInFacebook(socialUser: SocialUser){
-    console.log(socialUser);
     return this.http.post<User>('http://localhost:8000/users/facebookLogin', socialUser)
   }
 }

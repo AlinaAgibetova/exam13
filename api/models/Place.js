@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PlaceSchema = new Schema({
-  name: {
+  title: {
     type: String
   },
   user: {
@@ -25,6 +25,7 @@ const PlaceSchema = new Schema({
     }
   }],
   photoContent: String,
+  description: String,
   isAgree: {
     type: Boolean,
     default: true,

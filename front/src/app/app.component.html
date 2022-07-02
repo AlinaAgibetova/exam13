@@ -9,18 +9,17 @@
           *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-<!--        <a routerLink="/">Artists</a>-->
-<!--        <a routerLink="/albums">Albums</a>-->
       </div>
       <nav *appHasRoles="['user', 'admin'] else anonMenu">
         <button mat-icon-button [matMenuTriggerFor]="menu" >
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu=matMenu>
-          <img [src]="'http://localhost:8000/uploads/'+(user | async)?.avatar">
+          <img [src]="'http://localhost:8000/uploads/' + ( user | async )?.avatar" style="border-radius: 50%; width: 35px; height: 35px; margin-top: 10px" [alt]="'Avatar' + ( user |  async )?.displayName">
+
           <button mat-menu-item disabled>{{ (user | async)?.email  }}</button>
+          <a mat-button routerLink="/add-places">Add new place</a>
           <button mat-menu-item (click)="logout()">Logout</button>
-<!--          <button mat-menu-item routerLink="/new-artist" >ADD NEW ARTIST</button>-->
         </mat-menu>
       </nav>
     </mat-toolbar>
