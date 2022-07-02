@@ -17,9 +17,10 @@ export class PlacesService {
             placeData._id,
             placeData.user,
             placeData.photo,
-            placeData.review,
+            placeData.rate,
             placeData.photoContent,
             placeData.title,
+            placeData.description
           );
         });
       })
@@ -54,9 +55,10 @@ export class PlacesService {
             placeData._id,
             placeData.user,
             placeData.photo,
-            placeData.review,
+            placeData.rate,
             placeData.photoContent,
             placeData.title,
+            placeData.description,
           );
         });
       })

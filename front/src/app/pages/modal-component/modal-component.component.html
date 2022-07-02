@@ -1,1 +1,90 @@
-<p>modal-component works!</p>
+<div mat-dialog-content class="mat-typography">
+  <div fxLayout="row wrap" >
+    <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lt-lg="33%" fxFlex="25%">
+      <h4> {{ thisPlace?.title }} </h4>
+      <img
+        [src]="'http://localhost:8000/uploads/' + thisPlace?.photoContent"
+        [alt]="'Photo of' + thisPlace?.photoContent"
+        style="height: auto; width: 250px"
+      />
+
+      <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column">
+
+        <mat-form-field appearance="outline" >
+          <mat-label>Add new review</mat-label>
+          <input name="content" required matInput ngModel/>
+        </mat-form-field>
+
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Quality of service</mat-label>
+            <mat-select name="qualityOfService" ngModel>
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Quality of food</mat-label>
+            <mat-select name="qualityOfFood" ngModel>
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-select name="interior" ngModel>
+              <mat-label>Interior</mat-label>
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <div>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="f.invalid || (loading | async)"
+            >Submit review</button>
+          </div>
+        </div>
+      </form>
+
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          <form (ngSubmit)="onSubmitPhoto()" #forma="ngForm" fxLayout="column">
+            <mat-form-field appearance="outline">
+              <mat-label>Upload new photo</mat-label>
+              <app-file-input name="photo" ngModel required></app-file-input>
+            </mat-form-field>
+            <div>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="forma.invalid || (loadingPhoto | async)"
+              >Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="onClose()">
+    Cancel
+  </button>
+</mat-dialog-actions>
+
+

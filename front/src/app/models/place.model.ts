@@ -7,20 +7,14 @@ export class Place {
     },
     public photo: {
       _id: string,
-      user: {
-        displayName: string,
-        _id: string,
-      }
-    }[],
-    public review: {
+      photo: string
+    },
+    public rate: {
       _id: string,
-      user: {
-        displayName: string,
-        _id: string,
-      }
-    }[],
+    },
     public photoContent: string,
     public title: string,
+    public description: string
   ) {}
 }
 
@@ -41,18 +35,12 @@ export interface ApiPlaceData {
   },
   photo: {
     _id: string,
-    user: {
-      displayName: string,
-      _id: string,
-    }
-  }[],
-  review: {
+    photo: string,
+  },
+  rate: {
     _id: string,
-    user: {
-      displayName: string,
-      _id: string,
-    }
-  }[],
+  },
   photoContent: string,
   title: string,
+  description: string
 }

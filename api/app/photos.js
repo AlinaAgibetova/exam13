@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('../config');
 const auth = require('../middleware/auth');
 const Photo = require('../models/Photo');
+const permit = require("../middleware/permit");
 
 const router = express.Router();
 
@@ -34,10 +35,10 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', upload.single('photo'), async (req, res, next) => {
+router.post('/', auth, permit('user', 'admin'), upload.single('photo'), async (req, res, next) => {
   try {
     const photoData = {
-      user: req.body.user,
+      user: req.user.id,
       place: req.body.place,
       photo: null
     }

@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('../config');
 const auth = require('../middleware/auth');
 const Review = require('../models/Review');
+const permit = require("../middleware/permit");
 
 const router = express.Router();
 
@@ -23,8 +24,9 @@ const upload = multer({storage});
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const review = await Review.findById(req.params.id).populate('place', 'name')
+    const review = await Review.findById(req.params.id)
       .populate('user', 'displayName')
+
     // if (!review) {
     //   return res.status(404).send({message: 'Нет такого заведения'});
     // }
@@ -34,12 +36,13 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/',auth, permit('user', 'admin'), async (req, res, next) => {
   try {
+    console.log(req.body);
     const reviewData = {
-      user: req.body.user,
-      content: req.body.content,
+      user: req.user._id,
       place: req.body.place,
+      content: req.body.content,
       qualityOfService: req.body.qualityOfService,
       qualityOfFood: req.body.qualityOfFood,
       interior: req.body.interior

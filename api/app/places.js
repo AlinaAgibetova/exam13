@@ -34,7 +34,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const place = await Place.findById(req.params.id)
-      .populate([{path: 'review.user', select: 'displayName photo'}])
     if (!place) {
       return res.status(404).send({message: 'Нет такого заведения'});
     }

@@ -114,48 +114,48 @@ router.delete('/sessions', async (req, res, next) => {
   }
 });
 
-router.post('/facebookLogin', async (req, res, next) => {
-  try{
-    const inputToken = req.body.authToken;
-    const accessToken = config.facebook.appId + '|' + config.facebook.appSecret;
-
-    const debugTokenUrl = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`;
-    const response = await axios.get(debugTokenUrl);
-
-    if (response.data.data.error){
-      return res.status(401).send({message: 'Facebook token incorrect'})
-    }
-
-    if (req.body.id !==response.data.data.user_id){
-      return res.status(401).send({message: 'Wrong user ID'});
-    }
-
-    let user = await User.findOne({facebookId: req.body.id});
-
-    if (!user){
-
-      const image = `${nanoid()}.jpg`;
-      function downLoadFile(url, path){
-        return fetch(url).then(res => {
-          res.body.pipe(fs.createWriteStream(path));
-        })
-      }
-      downLoadFile(req.body.response.picture.data.url, `./public/uploads/${image}`)
-      user = new User({
-        email: req.body.email,
-        password: nanoid(),
-        facebookId: req.body.id,
-        displayName: req.body.name,
-        avatar: image
-      });
-    }
-
-    user.generateToken();
-    await user.save();
-    return res.send(user);
-  }catch (e) {
-    next(e);
-  }
-})
+// router.post('/facebookLogin', async (req, res, next) => {
+//   try{
+//     const inputToken = req.body.authToken;
+//     const accessToken = config.facebook.appId + '|' + config.facebook.appSecret;
+//
+//     const debugTokenUrl = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`;
+//     const response = await axios.get(debugTokenUrl);
+//
+//     if (response.data.data.error){
+//       return res.status(401).send({message: 'Facebook token incorrect'})
+//     }
+//
+//     if (req.body.id !==response.data.data.user_id){
+//       return res.status(401).send({message: 'Wrong user ID'});
+//     }
+//
+//     let user = await User.findOne({facebookId: req.body.id});
+//
+//     if (!user){
+//
+//       const image = `${nanoid()}.jpg`;
+//       function downLoadFile(url, path){
+//         return fetch(url).then(res => {
+//           res.body.pipe(fs.createWriteStream(path));
+//         })
+//       }
+//       downLoadFile(req.body.response.picture.data.url, `./public/uploads/${image}`)
+//       user = new User({
+//         email: req.body.email,
+//         password: nanoid(),
+//         facebookId: req.body.id,
+//         displayName: req.body.name,
+//         avatar: image
+//       });
+//     }
+//
+//     user.generateToken();
+//     await user.save();
+//     return res.send(user);
+//   }catch (e) {
+//     next(e);
+//   }
+// })
 
 module.exports = router;

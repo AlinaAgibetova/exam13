@@ -10,22 +10,17 @@ const PlaceSchema = new Schema({
     ref: 'User',
     required: true
   },
-  review: [{
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
-    }
-  }],
-  photo: [{
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
-    }
-  }],
+  photo: {
+    type: Schema.Types.ObjectId,
+    ref: 'Photo',
+  },
   photoContent: String,
   description: String,
+
+  rate: {
+    type: String,
+    default: 0,
+  },
   isAgree: {
     type: Boolean,
     default: true,
