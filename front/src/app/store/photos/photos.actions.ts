@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Photo, PhotoData } from '../../models/photo.model';
 
 export const fetchPhotoRequest = createAction('[Photo] Fetch Request', props<{id: string}>());
-export const fetchPhotoSuccess = createAction('[Photo] Fetch Success', props<{photo: Photo}>());
+export const fetchPhotoSuccess = createAction('[Photo] Fetch Success', props<{photos: Photo[]}>());
 export const fetchPhotoFailure = createAction('[Photo] Fetch Failure', props<{error: string}>());
 
 export const createPhotoRequest = createAction('[Photo] Create Request', props<{photoData: PhotoData}>());

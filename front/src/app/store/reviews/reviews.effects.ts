@@ -27,7 +27,7 @@ export class ReviewsEffects {
   fetchReviews = createEffect(() => this.actions.pipe(
     ofType(fetchReviewRequest),
     mergeMap(({id}) => this.reviewsService.getReview(id).pipe(
-      map(review => fetchReviewSuccess({review})),
+      map(reviews => fetchReviewSuccess({reviews})),
       catchError(() => of(fetchReviewFailure({
         error: 'Something went wrong'
       })))

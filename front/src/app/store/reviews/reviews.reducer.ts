@@ -22,7 +22,7 @@ const initialState: ReviewState = {
 export const reviewsReducer = createReducer(
   initialState,
   on(fetchReviewRequest, state => ({...state, fetchLoading: true})),
-  on(fetchReviewSuccess, (state, {review}) => ({...state, fetchLoading: false, review})),
+  on(fetchReviewSuccess, (state, {reviews}) => ({...state, fetchLoading: false, reviews})),
   on(fetchReviewFailure, (state, {error}) => ({...state, fetchLoading: false, fetchError: error})),
 
   on(createReviewRequest, state => ({...state, createLoading: true})),

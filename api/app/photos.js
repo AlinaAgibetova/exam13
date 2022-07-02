@@ -22,10 +22,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
+router.get('/', auth, async (req, res, next) => {
+  try{
+    if (req.query.place) {
+      const photoId = await Photo.find({place: {_id:req.query.place}}).populate('place', 'title');
+      return res.send(photoId)
+    }
+
+    const photos = await Photo.find().populate('place', 'title');
+    return res.send(photos);
+  }catch (e) {
+    next(e);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
-    const photo = await Photo.findById(req.params._id).populate('photo', 'id')
-      .populate('user', 'displayName')
+    const photo = await Photo.findById(req.params._id)
+
     // if (!review) {
     //   return res.status(404).send({message: 'Нет такого заведения'});
     // }
@@ -35,7 +49,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', auth, permit('user', 'admin'), upload.single('photo'), async (req, res, next) => {
+router.post('/', auth, upload.single('photo'), async (req, res, next) => {
   try {
     const photoData = {
       user: req.user.id,
@@ -50,8 +64,7 @@ router.post('/', auth, permit('user', 'admin'), upload.single('photo'), async (r
     const photo = new Photo(photoData);
     await photo.save();
 
-    return res.send(
-      {message: 'Created new photo', id: photo._id});
+    return res.send({message: 'Created new photo', id: photo._id});
   } catch (e) {
     next(e);
   }

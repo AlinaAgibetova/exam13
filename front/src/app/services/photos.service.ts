@@ -11,7 +11,7 @@ export class PhotosService {
   constructor(private http: HttpClient) { }
 
   getPhoto(id: string) {
-    return this.http.get<Photo>(`http://localhost:8000/photos/${id}`).pipe(
+    return this.http.get<ApiPhotoData[]>(`http://localhost:8000/photos?place=${id}`).pipe(
       map(result => {
         return result
       })

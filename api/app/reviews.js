@@ -8,6 +8,7 @@ const config = require('../config');
 const auth = require('../middleware/auth');
 const Review = require('../models/Review');
 const permit = require("../middleware/permit");
+const Photo = require("../models/Photo");
 
 const router = express.Router();
 
@@ -21,6 +22,20 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage});
+
+router.get('/', auth, async (req, res, next) => {
+  try{
+    if (req.query.place) {
+      const review = await Photo.find({place: {_id:req.query.place}}).populate('place', 'title');
+      return res.send(review)
+    }
+
+    const review = await Review.find().populate('place', 'title');
+    return res.send(review);
+  }catch (e) {
+    next(e);
+  }
+});
 
 router.get('/:id', async (req, res, next) => {
   try {

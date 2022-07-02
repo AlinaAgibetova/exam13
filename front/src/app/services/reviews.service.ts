@@ -10,7 +10,7 @@ export class ReviewsService {
   constructor(private http: HttpClient) { }
 
   getReview(id: string) {
-    return this.http.get<Review>(`http://localhost:8000/reviews/${id}`).pipe(
+    return this.http.get<ApiReviewData[]>(`http://localhost:8000/reviews?place=${id}`).pipe(
       map(result => {
         return result
       })

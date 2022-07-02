@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Review, ReviewData } from '../../models/review.model';
 
 export const fetchReviewRequest = createAction('[Review] Fetch Request', props<{id: string}>());
-export const fetchReviewSuccess = createAction('[Review] Fetch Success', props<{review: Review}>());
+export const fetchReviewSuccess = createAction('[Review] Fetch Success', props<{reviews: Review[]}>());
 export const fetchReviewFailure = createAction('[Review] Fetch Failure', props<{error: string}>());
 
 export const createReviewRequest = createAction('[Review] Create Request', props<{reviewData: ReviewData}>());

@@ -51,7 +51,7 @@ const run = async () => {
     rate: '5',
   });
 
-  const [lim, ava, pub] = await Photo.create({
+  await Photo.create({
     user: user,
     place: Resto,
     photo: 'маргарита.jpg'

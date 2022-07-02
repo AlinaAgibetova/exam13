@@ -26,7 +26,7 @@ export class PhotosEffects {
   fetchPhotos = createEffect(() => this.actions.pipe(
     ofType(fetchPhotoRequest),
     mergeMap(({id}) => this.photosService.getPhoto(id).pipe(
-      map(photo => fetchPhotoSuccess({photo})),
+      map(photos => fetchPhotoSuccess({photos})),
       catchError(() => of(fetchPhotoFailure({
         error: 'Something went wrong'
       })))
