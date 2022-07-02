@@ -22,7 +22,7 @@ const initialState: PhotoState = {
 export const photosReducer = createReducer(
   initialState,
   on(fetchPhotoRequest, state => ({...state, fetchLoadingPhoto: true})),
-  on(fetchPhotoSuccess, (state, {photos}) => ({...state, fetchLoadingPhoto: false, photos})),
+  on(fetchPhotoSuccess, (state, {photo}) => ({...state, fetchLoadingPhoto: false, photo})),
   on(fetchPhotoFailure, (state, {error}) => ({...state, fetchLoadingPhoto: false, fetchErrorPhoto: error})),
 
   on(createPhotoRequest, state => ({...state, createLoadingPhoto: true})),

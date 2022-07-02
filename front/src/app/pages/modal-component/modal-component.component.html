@@ -8,6 +8,21 @@
         style="height: auto; width: 250px"
       />
 
+      <div *ngFor="let photo of photos | async">
+        <img
+          [src]="photo.photo | image"
+          [alt]="'Photo of' + photo.photo | image"
+          mat-card-image
+        />
+      </div>
+
+      <div *ngFor="let review of reviews | async">
+        <h4>Quality of service: {{ review.qualityOfService }}</h4>
+        <h4>Quality of food: {{ review.qualityOfFood }}</h4>
+        <h4>Interior: {{ review.interior }}</h4>
+      </div>
+
+
       <form (ngSubmit)="onSubmit()" #f="ngForm" fxLayout="column">
 
         <mat-form-field appearance="outline" >

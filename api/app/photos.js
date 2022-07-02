@@ -24,7 +24,7 @@ const upload = multer({storage});
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const photo = await Photo.findById(req.params.id).populate('place', 'name')
+    const photo = await Photo.findById(req.params._id).populate('photo', 'id')
       .populate('user', 'displayName')
     // if (!review) {
     //   return res.status(404).send({message: 'Нет такого заведения'});

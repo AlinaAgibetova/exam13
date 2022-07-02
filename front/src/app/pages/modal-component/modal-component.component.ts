@@ -7,10 +7,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Review, ReviewData } from '../../models/review.model';
-import { createReviewRequest } from '../../store/reviews/reviews.actions';
-import { Photo, PhotoData } from '../../models/photo.model';
-import { createPhotoRequest } from '../../store/photos/photos.actions';
+import { ApiReviewData, Review, ReviewData } from '../../models/review.model';
+import { createReviewRequest, fetchReviewRequest } from '../../store/reviews/reviews.actions';
+import { ApiPhotoData, Photo, PhotoData } from '../../models/photo.model';
+import { createPhotoRequest, fetchPhotoRequest } from '../../store/photos/photos.actions';
 
 @Component({
   selector: 'app-modal-component',
@@ -32,6 +32,8 @@ export class ModalComponentComponent implements OnInit, OnDestroy {
   error: Observable<null | string>;
 
   thisPlace!: ApiPlaceData;
+  thisPhoto!: ApiPhotoData;
+  thisReview!: ApiReviewData;
   thisSub!: Subscription;
   UserSub!: Subscription;
   newUser!: User | null;
@@ -46,7 +48,6 @@ export class ModalComponentComponent implements OnInit, OnDestroy {
     this.photos = store.select(state => state.photos.photos);
     this.loadingPhoto = store.select(state => state.photos.fetchLoadingPhoto);
     this.errorPhoto = store.select(state => state.photos.fetchErrorPhoto);
-
     this.reviews = store.select(state => state.reviews.reviews);
 
   }
@@ -58,6 +59,9 @@ export class ModalComponentComponent implements OnInit, OnDestroy {
     this.UserSub = this.user.subscribe(user => {
       this.newUser = user;
     });
+    this.store.dispatch(fetchPhotoRequest({id: this.thisPhoto._id}));
+    this.store.dispatch(fetchReviewRequest({id: this.thisReview._id}));
+
   }
 
   onSubmit() {

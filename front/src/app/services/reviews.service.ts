@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { ApiReviewData, ReviewData } from '../models/review.model';
+import { ApiReviewData, Review, ReviewData } from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ReviewsService {
   constructor(private http: HttpClient) { }
 
   getReview(id: string) {
-    return this.http.get<ApiReviewData[]>(`http://localhost:8000/reviews/${id}`).pipe(
+    return this.http.get<Review>(`http://localhost:8000/reviews/${id}`).pipe(
       map(result => {
         return result
       })

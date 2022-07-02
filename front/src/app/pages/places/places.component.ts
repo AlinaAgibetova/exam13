@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PlacesService } from '../../services/places.service';
 import { fetchOnePhotoOfPlaceRequest, fetchPlacesRequest } from '../../store/places/places.actions';
 import { ModalComponentComponent } from '../modal-component/modal-component.component';
+import { Review } from '../../models/review.model';
+import { Photo } from '../../models/photo.model';
 
 @Component({
   selector: 'app-places',
