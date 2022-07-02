@@ -1,0 +1,61 @@
+<app-center-card title="Sign in">
+  <form #f="ngForm"
+        fxLayout="column"
+        autocomplete="off"
+        (ngSubmit)="onSubmit()">
+    <div *ngIf="error | async" class="error">{{ (error | async)?.error }}</div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        name="email" required autocomplete="email"
+        email matInput ngModel #email="ngModel"
+      />
+      <mat-error
+        *ngIf="email.touched && email.hasError('required')"
+      >Email is required!
+      </mat-error>
+      <mat-error
+        *ngIf="email.touched && email.hasError('username')"
+      >Enter correct email address!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        type="password" name="password" autocomplete="current-password"
+        required matInput ngModel #password="ngModel"/>
+      <mat-error
+        *ngIf="password.touched && password.hasError('required')"
+      >Password is required!
+      </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="centre" style="margin-bottom: 16px">
+      <a routerLink="/register">Don't have an account? Sign in</a>
+
+    </div>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="f.invalid"
+    >SIGN IN
+    </button>
+
+    <button
+      type="button"
+      mat-raised-button
+      color="default"
+      (click)="fbLogin()"
+      style="margin-top: 16px"
+    >
+      <img src="assets/images/icons8-facebook.svg"
+           style="width: 24px; height: 24px" alt="facebook logo" />&nbsp;&nbsp;
+
+      SIGN IN WITH FACEBOOK
+    </button>
+  </form>
+</app-center-card>
+
+

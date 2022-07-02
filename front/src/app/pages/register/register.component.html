@@ -1,0 +1,76 @@
+<app-center-card title="Register">
+  <form
+    #f="ngForm"
+    fxLayout="column"
+    autocomplete="off"
+    (ngSubmit)="onSubmit()"
+    [appIdentical]="['password', 'passwordRepeat']"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        name="email" required autocomplete="email"
+        email matInput ngModel #email="ngModel"
+      />
+      <mat-error
+        *ngIf="email.touched && email.hasError('required')"
+      >Username is required!
+      </mat-error>
+      <mat-error
+        *ngIf="email.touched && email.hasError('email')"
+      >Enter correct username!
+      </mat-error>
+      <mat-error
+        *ngIf="email.touched && email.hasError('serverError')"
+      >{{ email.getError('serverError')}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Display Name</mat-label>
+      <input
+        name="displayName" required type="text"
+        matInput ngModel #displayName="ngModel" autocomplete="displayName"
+      />
+      <mat-error
+        *ngIf="displayName.touched && displayName.hasError('required')"
+      >Username is required!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Avatar</mat-label>
+      <app-file-input name="avatar" ngModel></app-file-input>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        type="password" name="password" autocomplete="new-password"
+        required matInput ngModel #password="ngModel"
+      />
+      <mat-error
+        *ngIf="password.touched && password.hasError('required')"
+      >Password is required!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password repeat</mat-label>
+      <input
+        type="password" name="passwordRepeat" autocomplete="new-password"
+        required matInput ngModel #passwordRepeat="ngModel"
+      />
+      <mat-error
+        *ngIf="passwordRepeat.touched && passwordRepeat.hasError('required')"
+      >Password repeat is required!
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="passwordRepeat.touched && f.hasError('identical')">Password is not identical</mat-error>
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="f.invalid"
+    >REGISTER
+    </button>
+  </form>
+</app-center-card>
